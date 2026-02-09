@@ -1,0 +1,23 @@
+global_costmap:
+  global_frame: map
+  robot_base_frame: base_footprint
+  static_map: true              ##是否将map_server发来的地图数据作为初始地图
+  update_frequency: 1.0         ##地图更新频率
+  publish_frequency: 1.0        ##地图的发布频率
+  transform_tolerance: 1.0      ##transform延迟的容忍值
+
+recovery_behaviors:
+  - name: 'conservative_reset'
+    type: 'clear_costmap_recovery/ClearCostmapRecovery'
+  - name: 'rotate_recovery'
+    type: 'rotate_recovery/RotateRecovery'
+  - name: 'aggressive_reset'
+    type: 'clear_costmap_recovery/ClearCostmapRecovery'
+
+conservative_reset:
+  reset_distance: 2.0
+  layer_names: ["obstacle_layer"]
+
+aggressive_reset:
+  reset_distance: 0.0
+  layer_names: ["obstacle_layer"]

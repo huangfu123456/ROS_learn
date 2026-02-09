@@ -1,0 +1,10 @@
+local_costmap:
+  global_frame: odom      ##地图的坐标系，以odom作为参考系，测出的障碍物位置不易跳变
+  robot_base_frame: base_footprint
+  static_map: false       ##不使用SLAM建好的全局地图，使用激光雷达当前扫描到的临时地图
+  rolling_window: true    ##局部代价地图的范围是否跟机器人一起移动
+  width: 3.0
+  height: 3.0             ##局部代价地图的范围
+  update_frequency: 10.0  ##局部代价地图的更新频率，一般设置为激光雷达的扫描频率
+  publish_frequency: 10.0
+  transform_tolerance: 1.0

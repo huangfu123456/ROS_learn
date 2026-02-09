@@ -1,0 +1,20 @@
+robot_radius: 0.25      ##机器人的底盘半径
+inflation_radius: 0.5   ##膨胀区域的半径
+obstacle_range: 1.0     ##激光雷达扫描半径1m的距离中的障碍物都加到代价地图中，一般设置为激光雷达的有效检测距离
+raytrace_range: 6.0     ##在6m的扫描范围内，所有被激光雷达穿透的栅格被视为没有障碍物存在，主要用来清除障碍物的残留影子
+observation_sources: base_lidar head_kinect2  ##动态障碍物的观测来源
+base_lidar: {
+    data_type: LaserScan,
+    topic: /scan,       
+    marking: true,      ##是否将激光雷达扫描半径中的障碍物都加到代价地图
+    clearing: true      ##是否把扫描范围内的障碍物残影清除掉
+    }
+
+head_kinect2: {
+    data_type: PointCloud2,
+    topic: /kinect2/sd/points,       
+    marking: true,     
+    clearing: true,
+    max_obstacle_height : 1.5,
+    min_obstacle_height : 0.2
+    }
