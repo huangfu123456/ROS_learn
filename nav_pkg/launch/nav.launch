@@ -6,7 +6,8 @@
         <rosparam file="$(find wpb_home_tutorials)/nav_lidar/global_costmap_params.yaml" command="load" />
         <rosparam file="$(find wpb_home_tutorials)/nav_lidar/local_costmap_params.yaml" command="load" />
         <param name="base_global_planner" value="global_planner/GlobalPlanner" />    <!-- 要设置的全局规划器名称 -->
-        <param name="base_local_planner" value="wpbh_local_planner/WpbhLocalPlanner" />
+        <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS"/>       <!-- 要设置的局部规划器名称 -->
+        <rosparam file="$(find wpb_home_tutorials)/nav_lidar/teb_local_planner_params.yaml" command="load" />
     </node>
 
     <!-- Run map server -->
@@ -18,3 +19,6 @@
     <!--- Run rviz -->
     <node name="rviz" pkg="rviz" type="rviz" args=" -d $(find nav_pkg)/rviz/nav.rviz"/>    <!-- rviz设置参数 -->
 </launch>
+
+
+
