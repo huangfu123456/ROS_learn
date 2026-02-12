@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(nav_pkg)
+project(cv_pkg)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -8,14 +8,13 @@ project(nav_pkg)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  actionlib
-  move_base_msgs
+  cv_bridge
   roscpp
 )
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
-
+find_package(OpenCV REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -70,7 +69,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   move_base_msgs
+#   std_msgs  # Or other packages containing msgs
 # )
 
 ################################################
@@ -104,8 +103,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES nav_pkg
-#  CATKIN_DEPENDS actionlib move_base_msgs roscpp
+#  LIBRARIES cv_pkg
+#  CATKIN_DEPENDS cv_bridge roscpp
 #  DEPENDS system_lib
 )
 
@@ -118,11 +117,12 @@ catkin_package(
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/nav_pkg.cpp
+#   src/${PROJECT_NAME}/cv_pkg.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -133,7 +133,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/nav_pkg_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/cv_pkg_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -197,7 +197,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_nav_pkg.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_cv_pkg.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
@@ -205,18 +205,19 @@ include_directories(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
-add_executable(nav_client src/nav_client.cpp)
+add_executable(cv_image_node src/cv_image_node.cpp)
 
-add_dependencies(nav_client ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(cv_image_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-target_link_libraries(nav_client
-  ${catkin_LIBRARIES}
+target_link_libraries(cv_image_node
+  ${catkin_LIBRARIES} ${OpenCV_LIBS}
 )
 
-add_executable(wp_node src/wp_node.cpp)
 
-add_dependencies(wp_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_executable(cv_hsv_node src/cv_hsv_node.cpp)
 
-target_link_libraries(wp_node
-  ${catkin_LIBRARIES}
+add_dependencies(cv_hsv_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+target_link_libraries(cv_hsv_node
+  ${catkin_LIBRARIES} ${OpenCV_LIBS}
 )

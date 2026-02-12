@@ -17,7 +17,19 @@
     <node pkg="amcl" type="amcl" name="amcl"/>
 
     <!--- Run rviz -->
-    <node name="rviz" pkg="rviz" type="rviz" args=" -d $(find nav_pkg)/rviz/nav.rviz"/>    <!-- rviz设置参数 -->
+    <node name="rviz" pkg="rviz" type="rviz" args=" -d $(find nav_pkg)/rviz/map_tool.rviz"/>    <!-- rviz设置参数 -->
+
+    <node pkg="waterplus_map_tools" type="wp_navi_server" name="wp_navi_server" output="screen"/>
+
+    <node pkg="waterplus_map_tools" type="wp_manager" name="wp_manager" output="screen"/>
+
+
+
+
+
+
+
+
 </launch>
 
 
