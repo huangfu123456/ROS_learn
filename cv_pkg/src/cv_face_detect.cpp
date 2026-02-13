@@ -62,7 +62,7 @@ void callbackRGB(const sensor_msgs::Image msg)
     waitKey(1);
 
 
-
+   
 
 
 
