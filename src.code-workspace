@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../ROS_zhao/catkin2_ws/src"
+		}
+	],
+	"settings": {
+		"python.autoComplete.extraPaths": [
+			"/opt/ros/noetic/lib/python3/dist-packages"
+		],
+		"python.analysis.extraPaths": [
+			"/opt/ros/noetic/lib/python3/dist-packages"
+		],
+		"ROS2.distro": "noetic"
+	}
+}
