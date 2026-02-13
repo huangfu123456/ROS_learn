@@ -14,7 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
-find_package(OpenCV REQUIRED)
+find_package(OpenCV REQUIRED) ##引入Opencv的环境参数
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -117,7 +117,7 @@ catkin_package(
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
-  ${OpenCV_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}      ##设置Opencv的头文件路径
 )
 
 ## Declare a C++ library
@@ -219,5 +219,22 @@ add_executable(cv_hsv_node src/cv_hsv_node.cpp)
 add_dependencies(cv_hsv_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 target_link_libraries(cv_hsv_node
+  ${catkin_LIBRARIES} ${OpenCV_LIBS}
+)
+
+
+add_executable(cv_follow_node src/cv_follow_node.cpp)
+
+add_dependencies(cv_follow_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+target_link_libraries(cv_follow_node
+  ${catkin_LIBRARIES} ${OpenCV_LIBS}
+)
+
+add_executable(cv_face_detect src/cv_face_detect.cpp)
+
+add_dependencies(cv_face_detect ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+target_link_libraries(cv_face_detect
   ${catkin_LIBRARIES} ${OpenCV_LIBS}
 )
