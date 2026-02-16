@@ -44,15 +44,17 @@ static float linear_vel = 0.1;
 static float angular_vel = 0.1;
 static int k_vel = 3;
 
-int GetCh()
+int GetCh()//GetCh 函数实现了类似 getch() 的功能，常用于需要即时响应用户按键的场景（如控制台游戏、交互式菜单等）。它通过临时禁用终端的行缓冲模式，使得 getchar() 能够无延迟地获取单个字符。
 {
-  static struct termios oldt, newt;
-  tcgetattr( STDIN_FILENO, &oldt);
+  static struct termios oldt, newt; //oldt 用于保存原始的终端属性，以便后续恢复。
+                                    //newt 用于保存修改后的终端属性
+  tcgetattr( STDIN_FILENO, &oldt);  //获取当前终端属性，并保存到 oldt
   newt = oldt;
-  newt.c_lflag &= ~(ICANON);
-  tcsetattr( STDIN_FILENO, TCSANOW, &newt);
+  newt.c_lflag &= ~(ICANON | ECHO);   // 同时清除两个标志位
+  //newt.c_lflag &= ~(ICANON);通俗理解：ICANON 是一个开关（规范模式开关），&= ~(ICANON) 就是把这个开关关掉，而不影响其他开关的状态。这样设置后，终端就进入了非规范模式，输入字符不再需要按回车就能被程序立即读取。
+  tcsetattr( STDIN_FILENO, TCSANOW, &newt);//tcsetattr 函数将新的终端属性设置到标准输入。
   int c = getchar();
-  tcsetattr( STDIN_FILENO, TCSANOW, &oldt);
+  tcsetattr( STDIN_FILENO, TCSANOW, &oldt);//在读取完成后，立即将终端属性恢复为原来的设置，以避免影响其他程序或后续输入。
   return c;
 }
 
@@ -60,7 +62,7 @@ int main(int argc, char** argv)
 {
   ros::init(argc, argv, "keyboard_vel_cmd");
 
-  printf("键盘控制WPR机器人： \n");
+  printf("键盘控制WPR机器人: \n");
   printf("w - 向前加速 \n");
   printf("s - 向后加速 \n");
   printf("a - 向左加速 \n");
