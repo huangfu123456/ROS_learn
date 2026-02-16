@@ -62,7 +62,7 @@ int main(int argc, char** argv)
 {
   ros::init(argc, argv, "keyboard_vel_cmd");
 
-  printf("键盘控制WPR机器人: \n");
+  printf("键盘控制机器人: \n");
   printf("w - 向前加速 \n");
   printf("s - 向后加速 \n");
   printf("a - 向左加速 \n");
